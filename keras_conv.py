@@ -51,7 +51,7 @@ class LossAccHistory(Callback):
 
 
 
-num_epochs = 5000
+num_epochs = 20000
 num_classes = 10
 batch_size = 10
 
