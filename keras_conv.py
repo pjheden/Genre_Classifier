@@ -9,7 +9,7 @@ import numpy as np
 
 
 def loadData(path):
-    filepath = './'
+    filepath = './data/'
     tr_data = np.load(filepath + path)
     x = np.asarray(tr_data["mfcc"], dtype=np.float32)
     y = np.asarray(tr_data["genre"], dtype=np.int32)
@@ -37,7 +37,7 @@ class LossAccHistory(Callback):
         self.accsVal.append(logs.get('val_acc'))
         self.size = self.size + 1
 
-        if self.size > 1000:
+        if self.size > 5000:
             np.save('./loss'+str(self.files), self.losses)
             np.save('./lossVal'+str(self.files), self.lossesVal)
             np.save('./acc'+str(self.files), self.accs)
@@ -52,7 +52,7 @@ class LossAccHistory(Callback):
 
 
 num_epochs = 20000
-num_classes = 10
+num_classes = 3
 batch_size = 10
 
 model = Sequential()
@@ -78,14 +78,18 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 # Normal features
-x_train, y_train = loadData('dataTrainMFCC.npz')
-# print(y_train.shape, np.max(y_train), np.min(y_train))
-# print(x_train.shape, np.max(x_train), np.min(x_train))
-x_train = np.reshape(x_train, [693, 300, 13, 1])
-x_val, y_val = loadData('dataValMFCC.npz')
-x_val = np.reshape(x_val, [99, 300, 13, 1])
-x_test, y_test = loadData('dataTestMFCC.npz')
-x_test = np.reshape(x_test, [198, 300, 13, 1])
+x_train, y_train = loadData('dataTrainMFCC_3C.npz')
+print(y_train.shape, np.max(y_train), np.min(y_train))
+print(x_train.shape, np.max(x_train), np.min(x_train))
+x_train = np.reshape(x_train, [210, 300, 13, 1])
+x_val, y_val = loadData('dataValMFCC_3C.npz')
+print(y_val.shape, np.max(y_val), np.min(y_val))
+print(x_val.shape, np.max(x_val), np.min(x_val))
+x_val = np.reshape(x_val, [30, 300, 13, 1])
+x_test, y_test = loadData('dataTestMFCC_3C.npz')
+print(y_test.shape, np.max(y_test), np.min(y_test))
+print(x_test.shape, np.max(x_test), np.min(x_test))
+x_test = np.reshape(x_test, [60, 300, 13, 1])
 
 # Callback hook to store data per epoch
 history = LossAccHistory()
