@@ -52,7 +52,7 @@ class LossAccHistory(Callback):
 
 
 num_epochs = 20000
-num_classes = 3
+num_classes = 5
 batch_size = 10
 
 model = Sequential()
@@ -78,18 +78,18 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 # Normal features
-x_train, y_train = loadData('dataTrainMFCC_3C.npz')
+x_train, y_train = loadData('dataTrainMFCC_5C.npz')
 print(y_train.shape, np.max(y_train), np.min(y_train))
 print(x_train.shape, np.max(x_train), np.min(x_train))
-x_train = np.reshape(x_train, [210, 300, 13, 1])
-x_val, y_val = loadData('dataValMFCC_3C.npz')
+x_train = np.reshape(x_train, [350, 300, 13, 1])
+x_val, y_val = loadData('dataValMFCC_5C.npz')
 print(y_val.shape, np.max(y_val), np.min(y_val))
 print(x_val.shape, np.max(x_val), np.min(x_val))
-x_val = np.reshape(x_val, [30, 300, 13, 1])
-x_test, y_test = loadData('dataTestMFCC_3C.npz')
+x_val = np.reshape(x_val, [50, 300, 13, 1])
+x_test, y_test = loadData('dataTestMFCC_5C.npz')
 print(y_test.shape, np.max(y_test), np.min(y_test))
 print(x_test.shape, np.max(x_test), np.min(x_test))
-x_test = np.reshape(x_test, [60, 300, 13, 1])
+x_test = np.reshape(x_test, [100, 300, 13, 1])
 
 # Callback hook to store data per epoch
 history = LossAccHistory()
