@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-files = 18
+files = 2
 
 acc = np.load('acc0.npy')
 acc_val = np.load('accVal0.npy')
